@@ -14,6 +14,11 @@ object Main extends App {
 
   val n = 20
   val pool = java.util.concurrent.Executors.newScheduledThreadPool(n)
+
+  //varying the batch size affects whether the program completes or hangs
+  //small batch sizes allow the latch count downs to spread across threads sufficiently
+  //larger batch sizes make execution too synchronous for the latch to countdown
+  
 //  implicit val s = monix.execution.Scheduler(pool, ExecutionModel.BatchedExecution(4))
   implicit val s = monix.execution.Scheduler(pool, ExecutionModel.BatchedExecution(16))
 
